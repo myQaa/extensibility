@@ -1,0 +1,1278 @@
+openapi: 3.0.0
+info:
+    version: 1.0.0
+    title: Eventdrive API
+servers:
+    - url: https://api.eventdrive.com/public/v1/
+      description: Production server (uses live data)
+    - url: https://api.dev.eventdrive.com/public/v1/
+      description: Sandbox server (uses test data)
+paths:
+    /token:
+        post:
+            tags:
+                - token
+            requestBody:
+                content:
+                    application/x-www-form-urlencoded:
+                        schema:
+                            type: object
+                            properties:
+                                client_id:
+                                    type: string
+                                    description: Client ID
+                                client_secret:
+                                    type: string
+                                    description: Client Secret
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    access_token:
+                                        type: string
+                                        format: bearer
+                                    token_type:
+                                        type: string
+                                    expires_in:
+                                        type: integer
+                                        format: int32
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+    /events:
+        get:
+            tags:
+                - Events
+            summary: Retrieve all events
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/EventList'
+                403:
+                    $ref: '#/components/responses/403'
+        post:
+            tags:
+                - Events
+            summary: Add a new event
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Event'
+            responses:
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+
+    /events/{eventId}:
+        get:
+            tags:
+                - Events
+            summary: Retrieve an event
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Events
+            summary: Update an event
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Event'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Events
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            summary: Delete an event
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /events/{eventId}/sessions:
+        get:
+            tags:
+                - Events Sessions
+            summary: Retrieve event sessions
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SessionList'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        post:
+            tags:
+                - Events Sessions
+            summary: Add a new session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Session'
+            responses:
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Session'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+    /events/{eventId}/sessions/{sessionId}:
+        get:
+            tags:
+                - Events Sessions
+            summary: Retrieve a session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/sessionId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Session'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Events Sessions
+            summary: Update a session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/sessionId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Session'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Session'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Events Sessions
+            summary: Delete a session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/sessionId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+
+    /events/{eventId}/attendees:
+        get:
+            tags:
+                - Events Attendees
+            summary: Retrieve event attendees
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeEventList'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /events/{eventId}/attendees/{attendeeId}:
+        post:
+            tags:
+                - Events Attendees
+            summary: Add attendee to event
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Events Attendees
+            summary: Remove an attendee from event
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /attendees:
+        get:
+            tags:
+                - Attendees
+            summary: Retrieve all attendees
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeList'
+                403:
+                    $ref: '#/components/responses/403'
+        post:
+            tags:
+                - Attendees
+            summary: Add a new attendee
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Attendee'
+            responses:
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+    /attendees/{attendeeId}:
+        get:
+            tags:
+                - Attendees
+            summary: Retrieve an attendee
+            parameters:
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Attendees
+            summary: Update an attendee
+            parameters:
+                - $ref: '#/components/parameters/attendeeId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Attendee'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Attendees
+            summary: Delete an attendee
+            parameters:
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /members:
+        get:
+            tags:
+                - Members
+            summary: Retrieve all members
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MembersList'
+                403:
+                    $ref: '#/components/responses/403'
+        post:
+            tags:
+                - Members
+            summary: Add a new member
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Member'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /members/{memberId}:
+        get:
+            tags:
+                - Members
+            summary: Retrieve a member
+            parameters:
+                - $ref: '#/components/parameters/memberId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                403:
+                    $ref: '#/components/responses/403'
+        put:
+            tags:
+                - Members
+            summary: Update an member
+            parameters:
+                - $ref: '#/components/parameters/memberId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Member'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Members
+            summary: Delete a member
+            parameters:
+                - $ref: '#/components/parameters/memberId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /events/{eventExternalId}:
+        get:
+            tags:
+                - Events
+            summary: Retrieve an event using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Events
+            summary: Update an event using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Event'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+                400:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            examples:
+                                Invalid main manager:
+                                    value:
+                                        message: 'The given data was invalid.'
+                                        errors:
+                                            main_manager_id:
+                                                - 'The selected main manager id is invalid.'
+                                Invalid additional managers:
+                                    value:
+                                        message: 'The given data was invalid.'
+                                        errors:
+                                            additional_manager_id.0:
+                                                - 'The selected additional_manager_id.0 is invalid.'
+                                            additional_manager_id.1:
+                                                - 'The selected additional_manager_id.1 is invalid.'
+                                Invalid template Id:
+                                    value:
+                                        message: 'The given data was invalid.'
+                                        errors:
+                                            event_template_id:
+                                                - 'The selected event template id is invalid.'
+
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Events
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+            summary: Update an event using external Id
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /members/{memberExternalId}:
+        get:
+            tags:
+                - Members
+            summary: Retrieve a member using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/memberExternalId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                403:
+                    $ref: '#/components/responses/403'
+        put:
+            tags:
+                - Members
+            summary: Update an member using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/memberExternalId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Member'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Member'
+                400:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            examples:
+                                Missing required field:
+                                    value:
+                                        message: 'The given data was invalid.'
+                                        errors:
+                                            first_name:
+                                                - 'The first name field is required.'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Members
+            summary: Delete a member using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/memberExternalId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /attendees/{attendeeExternalId}:
+        get:
+            tags:
+                - Attendees
+            summary: Retrieve an attendee using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Attendees
+            summary: Update an attendee using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Attendee'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Attendee'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Attendees
+            summary: Delete an attendee using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /events/{eventExternalId}/attendees:
+        get:
+            tags:
+                - Events Attendees
+            summary: Retrieve event attendees using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeEventList'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /events/{eventExternalId}/attendees/{attendeeExternalId}:
+        get:
+            tags:
+                - Events Attendees
+            summary: Retrieve an event attendee using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Events Attendees
+            summary: Add an attendee to an event using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EventAttendeeRequestBody'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Events Attendees
+            summary: Remove an attendee from an event using external Id
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+                - $ref: '#/components/parameters/attendeeExternalId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+security:
+    - oauth: []
+components:
+    securitySchemes:
+        oauth:
+            type: oauth2
+            flows:
+                clientCredentials:
+                    tokenUrl: https://oauth.eventdrive.com/token
+                    scopes: {}
+    responses:
+        200:
+            description: OK
+            content:
+                application/json: {}
+        400:
+            description: Bad Request
+        401:
+            description: Unauthorized
+        403:
+            description: Forbidden
+        404:
+            description: Not Found
+    schemas:
+        Attendee:
+            type: object
+            required:
+                - email
+                - first_name
+                - last_name
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                external_id:
+                    type: string
+                email:
+                    type: string
+                    format: email
+                first_name:
+                    type: string
+                last_name:
+                    type: string
+                company:
+                    type: string
+                job_title:
+                    type: string
+                avatar_url:
+                    type: string
+                biography:
+                    type: string
+                country_code:
+                    type: string
+                    example: FR
+                country_name:
+                    type: string
+                location:
+                    type: string
+                phone_number:
+                    type: string
+                facebook_url:
+                    type: string
+                    format: uri
+                    example: 'https://www.facebook.com/#'
+                linkedin_url:
+                    type: string
+                    format: uri
+                    example: 'https://www.linkedin.com/in/#'
+                twitter_url:
+                    type: string
+                    format: uri
+                    example: 'https://twitter.com/#'
+                website_url:
+                    type: string
+                    format: uri
+                extra_fields:
+                    type: object
+                created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+        Event:
+            type: object
+            required:
+                - name
+                - start_date
+                - end_date
+                - timezone
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                external_id:
+                    type: string
+                main_manager_id:
+                    type: integer
+                    format: int32
+                additional_manager_id:
+                    type: array
+                    items:
+                        type: string
+                event_template_id:
+                    type: string
+                    writeOnly: true
+                is_template:
+                    type: boolean
+                    readOnly: true
+                    example: false
+                category_id:
+                    type: integer
+                    format: int32
+                category_ids:
+                    type: array
+                    items:
+                        type: integer
+                name:
+                    type: object
+                    properties:
+                        en:
+                            type: string
+                    additionalProperties:
+                        type: string
+                description:
+                    type: object
+                    properties:
+                        en:
+                            type: string
+                    additionalProperties:
+                        type: string
+                visibility:
+                    type: string
+                    enum: [protected, private, public]
+                    default: public
+                status:
+                    type: string
+                    enum: [draft, live, closed]
+                    default: draft
+                start_date:
+                    type: string
+                    format: date-time
+                end_date:
+                    type: string
+                    format: date-time
+                timezone:
+                    type: string
+                    example: Europe/Paris
+                default_locale:
+                    type: string
+                    writeOnly: true
+                    example: fr
+                available_locales:
+                    type: array
+                    items:
+                        type: string
+                        example: fr
+                venue:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                        address:
+                            type: string
+                        city:
+                            type: string
+                        postcode:
+                            type: string
+                        country_code:
+                            type: string
+                            example: FR
+                        latitude:
+                            type: string
+                        longitude:
+                            type: string
+                urls:
+                    type: object
+                    readOnly: true
+                    properties:
+                        admin:
+                            type: string
+                            example: 'https://#'
+                        website:
+                            type: string
+                            example: 'https://evdr.co/#'
+                        web_app:
+                            type: string
+                            example: 'https://#'
+        Session:
+            type: object
+            required:
+                - name
+                - start_date
+                - end_date
+                - visibility
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: object
+                    properties:
+                        en:
+                            type: string
+                    additionalProperties:
+                        type: string
+                description:
+                    type: object
+                    properties:
+                        en:
+                            type: string
+                    additionalProperties:
+                        type: string
+                visibility:
+                    type: string
+                    enum: [everyone, attendees_group, attendees]
+                waiting_list:
+                    type: boolean
+                start_date:
+                    type: string
+                    format: date-time
+                end_date:
+                    type: string
+                    format: date-time
+        EventList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Event'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+        SessionList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Session'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+        AttendeeList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Attendee'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+        AttendeeEventList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        allOf:
+                            - $ref: '#/components/schemas/Attendee'
+                            - $ref: '#/components/schemas/EventAttendee'
+        Member:
+            type: object
+            required:
+                - first_name
+                - last_name
+                - email
+                - company
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                    readOnly: true
+                external_id:
+                    type: string
+                first_name:
+                    type: string
+                last_name:
+                    type: string
+                email:
+                    type: string
+                    format: email
+                password:
+                    type: string
+                    writeOnly: true
+                phone_number:
+                    type: string
+                company:
+                    type: string
+                job_title:
+                    type: string
+                location:
+                    type: string
+                locale:
+                    type: string
+                    example: fr
+                timezone:
+                    type: string
+                    example: Europe/Paris
+                is_admin:
+                    type: boolean
+                    default: false
+                country_code:
+                    type: string
+                    example: FR
+                active_event_short_url:
+                    type: string
+                    readOnly: true
+        MembersList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Member'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+        EventAttendee:
+            type: object
+            properties:
+                specific_attributes:
+                    type: array
+                    readOnly: true
+                    items:
+                        type: object
+                        properties:
+                            name:
+                                type: string
+                                example: 'First registration form'
+                            label:
+                                type: string
+                                example: 'first_form'
+                            created_at:
+                                type: string
+                                format: date-time
+                            attributes:
+                                type: object
+                                additionalProperties:
+                                    type: string
+                registration:
+                    type: object
+                    properties:
+                        registration_status:
+                            type: string
+                            enum:
+                                - none
+                                - invited
+                                - confirmed
+                                - refused
+                        registration_status_updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        checked_in:
+                            type: boolean
+                        checked_in_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                forms:
+                    type: object
+                    readOnly: true
+                    description: 'Every form labels of the event. True if the form was submitted by the attendee.'
+                    additionalProperties:
+                        type: boolean
+                urls:
+                    type: object
+                    readOnly: true
+                    properties:
+                        confirm:
+                            type: string
+                            example: 'https://evdr.co/#'
+                        decline:
+                            type: string
+                            example: 'https://evdr.co/#'
+                qr_code:
+                    type: string
+                    readOnly: true
+                    description: 'Base-64 encoded QR Code image'
+        EventAttendeeRequestBody:
+            type: object
+            properties:
+                registration_status:
+                    type: string
+                    enum:
+                        - none
+                        - invited
+                        - confirmed
+                        - refused
+                checked_in:
+                    type: boolean
+    parameters:
+        eventId:
+            name: eventId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
+        attendeeId:
+            name: attendeeId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
+        memberId:
+            name: memberId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
+        sessionId:
+            name: sessionId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
+        useExternalId:
+            in: header
+            name: X-Use-External-Id
+            description: Use external Id (external system Id) instead of internal Id (Eventdrive Id) in main parameters
+            required: true
+            schema:
+                type: integer
+                enum:
+                    - 1
+        eventExternalId:
+            name: eventExternalId
+            in: path
+            required: true
+            schema:
+                type: string
+        memberExternalId:
+            name: memberExternalId
+            in: path
+            required: true
+            schema:
+                type: string
+        attendeeExternalId:
+            name: attendeeExternalId
+            in: path
+            required: true
+            schema:
+                type: string
