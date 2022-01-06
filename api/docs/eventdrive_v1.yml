@@ -262,6 +262,12 @@ paths:
             parameters:
                 - $ref: '#/components/parameters/eventId'
                 - $ref: '#/components/parameters/attendeeId'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EventAttendeeRequestBody'
             responses:
                 200:
                     description: OK
@@ -1220,6 +1226,13 @@ components:
                         - refused
                 checked_in:
                     type: boolean
+                invited_by_first_name:
+                    type: string
+                invited_by_last_name:
+                    type: string
+                invited_by_email:
+                    type: string
+                    format: email
     parameters:
         eventId:
             name: eventId
