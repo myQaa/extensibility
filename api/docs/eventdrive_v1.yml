@@ -941,6 +941,8 @@ components:
                     type: string
                     enum: [draft, live, closed]
                     default: draft
+                reference_id:
+                    type: string
                 start_date:
                     type: string
                     format: date-time
