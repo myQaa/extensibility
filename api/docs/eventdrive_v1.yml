@@ -1210,6 +1210,9 @@ components:
                     type: string
                     readOnly: true
                     description: 'Base-64 encoded QR Code image'
+                token:
+                    type: string
+                    readOnly: true
         EventAttendeeRequestBody:
             type: object
             properties:
