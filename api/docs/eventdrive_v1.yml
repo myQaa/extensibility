@@ -43,6 +43,20 @@ paths:
                     $ref: '#/components/responses/400'
                 403:
                     $ref: '#/components/responses/403'
+    /organization:
+        get:
+            tags:
+                - Organization
+            summary: Retrieve organization
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Organization'
+                403:
+                    $ref: '#/components/responses/403'
     /events:
         get:
             tags:
@@ -824,6 +838,33 @@ components:
         404:
             description: Not Found
     schemas:
+        Organization:
+            type: object
+            required:
+                - email
+                - first_name
+                - last_name
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                slug:
+                    type: string
+                branding:
+                    type: object
+                    properties:
+                        color:
+                            type: string
+                        icon_url:
+                            type: string
+                        logo_url:
+                            type: string
+                        background_image_url:
+                            type: string
+                        promo_image_url:
+                            type: string
         Attendee:
             type: object
             required:
