@@ -1206,6 +1206,16 @@ components:
                         decline:
                             type: string
                             example: 'https://evdr.co/#'
+                        forms:
+                            type: object
+                            properties:
+                                formLabel:
+                                    type: string
+                                    format: uri
+                                    example: 'http://admin.eventdrive.com/public/events/#/website/registrationforms/#/#'
+                        website:
+                            type: string
+                            example: 'http://admin.eventdrive.wip/public/events/#/website/home/0/0/#'
                 qr_code:
                     type: string
                     readOnly: true
