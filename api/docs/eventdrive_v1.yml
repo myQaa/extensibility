@@ -446,7 +446,7 @@ paths:
         put:
             tags:
                 - Members
-            summary: Update an member
+            summary: Update a member
             parameters:
                 - $ref: '#/components/parameters/memberId'
             requestBody:
@@ -503,7 +503,7 @@ paths:
         put:
             tags:
                 - Events
-            summary: Update an event using external Id
+            summary: Update or Create an event using external Id
             parameters:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/eventExternalId'
@@ -596,7 +596,7 @@ paths:
         put:
             tags:
                 - Members
-            summary: Update an member using external Id
+            summary: Update or Create a member using external Id
             parameters:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/memberExternalId'
@@ -670,7 +670,7 @@ paths:
         put:
             tags:
                 - Attendees
-            summary: Update an attendee using external Id
+            summary: Update or Create an attendee using external Id
             parameters:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/attendeeExternalId'
@@ -765,7 +765,7 @@ paths:
         put:
             tags:
                 - Events Attendees
-            summary: Add an attendee to an event using external Id
+            summary: Add or update an attendee to an event using external Id
             parameters:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/eventExternalId'
