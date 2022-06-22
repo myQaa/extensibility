@@ -1517,7 +1517,7 @@ components:
                     type: integer
                     format: int32
                     readOnly: false
-                total_price:
+                total_cost:
                     type: number
                     format: float
                     readOnly: true
