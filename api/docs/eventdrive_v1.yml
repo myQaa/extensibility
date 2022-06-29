@@ -1524,6 +1524,11 @@ components:
                 comment:
                     type: string
                     readOnly: false
+                orderItems:
+                    type: array
+                    readOnly: true
+                    items:
+                        $ref: '#/components/schemas/TicketingOrderItem'
 
         TicketingOrdersList:
             type: object
