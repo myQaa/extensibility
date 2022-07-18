@@ -978,6 +978,99 @@ paths:
                     $ref: '#/components/responses/403'
                 404:
                     $ref: '#/components/responses/404'
+    /cost-centers:
+        get:
+            tags:
+                - Cost Centers
+            summary: Retrieve all cost centers
+            parameters:
+                - $ref: '#/components/parameters/perPage'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CostCentersList'
+                403:
+                    $ref: '#/components/responses/403'
+        post:
+            tags:
+                - Cost Centers
+            summary: Add a new cost center
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CostCenter'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CostCenter'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+    /cost-centers/{costCenterId}:
+        get:
+            tags:
+                - Cost Centers
+            summary: Retrieve a cost center
+            parameters:
+                - $ref: '#/components/parameters/costCenterId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CostCenter'
+                403:
+                    $ref: '#/components/responses/403'
+        put:
+            tags:
+                - Cost Centers
+            summary: Update a cost center
+            parameters:
+                - $ref: '#/components/parameters/costCenterId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CostCenter'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CostCenter'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Cost Centers
+            summary: Delete a cost center
+            parameters:
+                - $ref: '#/components/parameters/costCenterId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
 security:
     - oauth: []
 components:
@@ -1624,6 +1717,47 @@ components:
                 last_page_url:
                     type: string
                     format: uri
+        CostCenter:
+            type: object
+            required:
+                - name
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                    readOnly: true
+                name:
+                    type: string
+                reference:
+                    type: string
+        CostCentersList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CostCenter'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+                next_page_url:
+                    type: string
+                    format: uri
+                prev_page_url:
+                    type: string
+                    format: uri
+                first_page_url:
+                    type: string
+                    format: uri
+                last_page_url:
+                    type: string
+                    format: uri
     parameters:
         eventId:
             name: eventId
@@ -1662,6 +1796,13 @@ components:
                 format: int32
         ticketingItemId:
             name: itemId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
+        costCenterId:
+            name: costCenterId
             in: path
             required: true
             schema:
