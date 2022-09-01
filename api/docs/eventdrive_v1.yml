@@ -1524,6 +1524,9 @@ components:
                 comment:
                     type: string
                     readOnly: false
+                internal_comment:
+                    type: string
+                    readOnly: false
                 orderItems:
                     type: array
                     readOnly: true
