@@ -978,6 +978,101 @@ paths:
                     $ref: '#/components/responses/403'
                 404:
                     $ref: '#/components/responses/404'
+
+    /teams:
+        get:
+            tags:
+                - Teams
+            summary: Retrieve all teams
+            parameters:
+                - $ref: '#/components/parameters/perPage'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/TeamList'
+                403:
+                    $ref: '#/components/responses/403'
+        post:
+            tags:
+                - Teams
+            summary: Add a new Team
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Team'
+            responses:
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Team'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+
+    /teams/{teamId}:
+        get:
+            tags:
+                - Teams
+            summary: Retrieve a team
+            parameters:
+                - $ref: '#/components/parameters/teamId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Team'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Teams
+            summary: Update a team
+            parameters:
+                - $ref: '#/components/parameters/teamId'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Team'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Team'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Teams
+            parameters:
+                - $ref: '#/components/parameters/teamId'
+            summary: Delete a team
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
 security:
     - oauth: []
 components:
@@ -1627,6 +1722,57 @@ components:
                 last_page_url:
                     type: string
                     format: uri
+
+        Team:
+            type: object
+            required:
+                - name
+                - organization_id
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                    readOnly: true
+                name:
+                    type: string
+                    readOnly: false
+                slug:
+                    type: string
+                    readOnly: true
+                organization_id:
+                    type: integer
+                    format: int32
+                    readOnly: false
+
+        TeamList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Team'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
+                next_page_url:
+                    type: string
+                    format: uri
+                prev_page_url:
+                    type: string
+                    format: uri
+                first_page_url:
+                    type: string
+                    format: uri
+                last_page_url:
+                    type: string
+                    format: uri
+
     parameters:
         eventId:
             name: eventId
@@ -1704,3 +1850,10 @@ components:
             description: "Limit the number of results per page"
             schema:
                 type: integer
+        teamId:
+            name: teamId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
