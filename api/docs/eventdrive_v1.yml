@@ -1727,7 +1727,6 @@ components:
             type: object
             required:
                 - name
-                - organization_id
             properties:
                 id:
                     type: integer
@@ -1739,10 +1738,6 @@ components:
                 slug:
                     type: string
                     readOnly: true
-                organization_id:
-                    type: integer
-                    format: int32
-                    readOnly: false
 
         TeamList:
             type: object
