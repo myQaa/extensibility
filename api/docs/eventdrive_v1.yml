@@ -551,6 +551,151 @@ paths:
                     $ref: '#/components/responses/403'
                 404:
                     $ref: '#/components/responses/404'
+    /events/{eventId}/groups:
+      get:
+        tags:
+          - Groups
+        summary: Retrieve groups
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+        responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/GroupsList"
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404" 
+      post:
+        tags:
+          - Groups
+        summary: Add a new group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        responses:
+          200:
+            description: OK
+          400:
+            $ref: "#/components/responses/400"
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
+    /events/{eventId}/groups/{groupId}:
+      get:
+        tags:
+          - Groups
+        summary: Retrieve a group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+        responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Group"
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
+      put:
+        tags:
+          - Groups
+        summary: Update a group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        responses:
+          200:
+            description: OK
+          400:
+            $ref: "#/components/responses/400"
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
+      delete:
+        tags:
+          - Groups
+        summary: Remove a group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+        responses:
+          200:
+            description: OK
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
+    /events/{eventId}/groups/{groupId}/attendees:
+      get:
+        tags:
+          - Groups
+        summary: Retrieve attendees in group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+        responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/GroupAttendeesList"
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"   
+    /events/{eventId}/groups/{groupId}/attendees/{attendeeId}:
+      put:
+        tags:
+          - Groups
+        summary: Add an attendee to a group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+          - $ref: "#/components/parameters/attendeeId"
+        responses:
+          200:
+            description: OK
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
+            
+      delete:
+        tags:
+          - Groups
+        summary: Detach an attendee of a group
+        parameters:
+          - $ref: "#/components/parameters/eventId"
+          - $ref: "#/components/parameters/groupId"
+          - $ref: "#/components/parameters/attendeeId"
+        responses:
+          200:
+            description: OK
+          403:
+            $ref: "#/components/responses/403"
+          404:
+            $ref: "#/components/responses/404"
     /members:
         get:
             tags:
@@ -1767,7 +1912,60 @@ components:
                 last_page_url:
                     type: string
                     format: uri
-
+        Group:
+            type: object
+            required:
+              - name
+            properties:
+              id:
+                type: integer
+                format: int32
+              name:
+                type: object
+                properties:
+                  en:
+                    type: string
+                additionalProperties:
+                  type: string
+              description:
+                type: object
+                properties:
+                  en:
+                    type: string
+                additionalProperties:
+                  type: string
+        GroupsList:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+              total_count:
+                type: integer
+                format: int32
+              page_size:
+                type: integer
+                format: int32
+              current_page:
+                type: integer
+                format: int32
+        GroupAttendeesList:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attendee"
+              total_count:
+                type: integer
+                format: int32
+              page_size:
+                type: integer
+                format: int32
+              current_page:
+                type: integer
+                format: int32
     parameters:
         eventId:
             name: eventId
@@ -1852,3 +2050,10 @@ components:
             schema:
                 type: integer
                 format: int32
+        groupId:
+            name: groupId
+            in: path
+            required: true
+            schema:
+              type: integer
+              format: int32
