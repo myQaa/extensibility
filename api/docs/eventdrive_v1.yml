@@ -1437,6 +1437,8 @@ components:
                         web_app:
                             type: string
                             example: 'https://#'
+                replay:
+                    type: boolean
         Session:
             type: object
             required:
