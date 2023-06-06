@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "3b561b39-f9c2-443b-aabd-e9bf01ec357b",
+		"name": "extra-fields",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-3b561b39-f9c2-443b-aabd-e9bf01ec357b?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "extra-fields",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/extra-fields",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"extra-fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra-fields/{extraFieldId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/extra-fields/85",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"extra-fields",
+						"85"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra-fields",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"select\",\n    \"variable_name\": \"toto\",\n    \"label\": {\n        \"de\": \"FR - GL - Liste déroulante\",\n        \"fr\": \"FR - GL - Liste déroulante\",\n        \"en\": \"EN - Liste déroulante\",\n        \"es\": \"ES - Liste déroulante\"\n    },\n    \"helper_text\": {\n        \"de\": \"FR - GL - Liste déroulante\",\n        \"fr\": \"FR - Helper- Liste déroulante 1\",\n        \"en\": \"EN - Helper- Liste déroulante 2\",\n        \"es\": \"ES - Helper- Liste déroulante 3\"\n    },\n    \"required\": true,\n    \"owner_type\": \"attendee\",\n    \"options\": [\n        {\n            \"toto\" : \"test\",\n            \"variable_name\" : \"test\",\n            \"label\": {\n                \"fr\": \"FR - Liste déroulante - A\",\n                \"en\": \"EN - Liste déroulante - A\",\n                \"es\": \"ES - Liste déroulante - A\"\n            }\n        },\n        {\n            \"label\": {\n                \"fr\": \"FR - Liste déroulante - B\",\n                \"en\": \"EN - Liste déroulante - A\",\n                \"es\": \"ES - Liste déroulante - A\",\n                \"de\": \"toto\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/extra-fields",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"extra-fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra-fields/{extraFieldId}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "0",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"input_text\",\n    \"variable_name\": \"toto31\",\n    \"label\": {\n        \"fr\": \"FR - GL - Single line text\",\n        \"en\": \"EN - Single line text 2\",\n        \"es\": \"ES - Single line text\",\n        \"de\": \"dredre\"\n    },\n    \"helper_text\": {\n        \"fr\": \"FR - Helper - Single line text\",\n        \"en\": \"EN - Helper - Single line text\",\n        \"es\": \"ES - Helper - Single line text\",\n        \"de\": null\n    },\n    \"required\": false,\n    \"owner_type\": \"attendee\",\n    \"options\": []\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/extra-fields/81",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"extra-fields",
+						"81"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra-fields/{extraFieldId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/extra-fields/{extraFieldId}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"extra-fields",
+						"{extraFieldId}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

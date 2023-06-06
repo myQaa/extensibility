@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "57ff65dd-cf02-4bf8-a438-cd0410754cde",
+		"name": "events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-57ff65dd-cf02-4bf8-a438-cd0410754cde?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/events?per_page=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id",
+							"disabled": true
+						},
+						{
+							"key": "per_page",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/788",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"788"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"external_id\": null,\n    \"is_template\": false,\n    \"event_template_id\": 1118,\n    \"main_manager_id\": 1,\n    \"additional_manager_id\": [],\n    \"visibility\": \"public\",\n    \"timezone\": \"Europe/Paris\",\n    \"start_date\": \"2020-03-18 00:00:00\",\n    \"end_date\": \"2020-03-19 00:00:00\",\n    \"available_locales\": [\n        \"fr\", \"en\"\n    ],\n    \"default_locale\": \"fr\",\n    \"name\": {\n        \"fr\": \"Template - fr\",\n        \"en\": \"Template - en\",\n        \"gt\" : \"\"\n    },\n    \"description\": {\n        \"fr\": \"Description de l'event - fr\",\n        \"en\": \"Description de l'event - en\"\n    },\n    \"venue\": {\n        \"name\": \"Eventdrive\",\n        \"address\": \"161 rue Lecourbe\",\n        \"postcode\": \"75015\",\n        \"city\": \"Paris\",\n        \"country_code\": \"fr\",\n        \"latitude\": \"48.8413144\",\n        \"longitude\": \"2.2963732\"\n    },\n    \"extra_fields\" : {\n    \"var_gl_event_multi_line_text\": \"Toto\",\n\t\"var_gl_event_reponse_date\": \"08/02/2022\",\n\t\"var_gl_event_liste_deroulante\": [86, 86, 86,86],\n\t\"var_gl_event_multiple_choice\": [88, 88, 88,88],\n\t\"var_gl_event_single_choice\": [92]\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"main_manager_id\": 1,\n    \"additional_manager_id\": [],\n    \"is_template\": false,\n    \"category_id\": \"\",\n    \"category_ids\": [],\n    \"name\": {\n        \"fr\": \"Jablines\",\n        \"en\": \"Jablines en\"\n    },\n    \"description\": {\n        \"fr\": \"Jablines\",\n        \"en\": \"Jablines i love it\"\n    },\n    \"visibility\": \"public\",\n    \"status\": \"draft\",\n    \"reference_id\": null,\n    \"start_date\": \"2020-03-18 00:00:00\",\n    \"end_date\": \"2020-03-19 00:00:00\",\n    \"timezone\": \"Europe/Paris\",\n    \"available_locales\": [\n        \"fr\",\n        \"en\"\n    ],\n    \"default_locale\": \"fr\",\n    \"venue\": {\n        \"name\": \"Eventdrive\",\n        \"address\": \"161 rue Lecourbe\",\n        \"city\": \"Paris\",\n        \"postcode\": \"75015\",\n        \"country_code\": \"FR\",\n        \"latitude\": \"\",\n        \"longitude\": \"\"\n    },\n    \"urls\": {\n        \"admin\": \"/events/12146/edit/infos\",\n        \"website\": \"https:///wEMnqw\",\n        \"web_app\": \"http://localhost:9001/#/apps/0/events/12146/home\"\n    },\n    \"extra_fields\": [],\n    \"website\": {\n        \"design\": {\n            \"background_image_url\": null,\n            \"header_background_image_url\": null\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/6000041",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"6000041"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/13324",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"13324"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

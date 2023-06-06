@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "2834b3f8-4527-4359-b092-5856f6cfbb48",
+		"name": "cost centers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-2834b3f8-4527-4359-b092-5856f6cfbb48?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "cost-centers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/members",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cost-centers/{costCenterId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/members/m-1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"members",
+						"m-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cost-centers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"name\",\n  \"reference\": \"TRTRY\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cost-centers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cost-centers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cost-centers/{costCenterId}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"name\",\n  \"reference\": \"TRTRY\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cost-centers/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cost-centers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cost-centers/{costCenterId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cost-centers/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cost-centers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "useExternalId",
+			"value": "{{useExternalId}}"
+		}
+	]
+}

@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "c1249a30-d949-4a85-8b5f-6ff3e436c568",
+		"name": "events/{eventId}/attendees",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-c1249a30-d949-4a85-8b5f-6ff3e436c568?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "events/{eventId}/attendees",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/12763/attendees?per_page=2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"12763",
+						"attendees"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/attendees/{attendeeId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/29954/attendees/1772740",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"29954",
+						"attendees",
+						"1772740"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/attendees/{attendeeId}",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"registration_status\": \"none\",\n    \"checked_in\": false\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/12763/attendees/1456",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"12763",
+						"attendees",
+						"1456"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/attendees/{attendeeId}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"external_id\": \"dededezdezdedddedzezdfervcer\",\n    \"email\": \"user@example.com\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"job_title\": null,\n    \"avatar_url\": \"http://admin.eventdrive.wip/storage/avatars/s.png\",\n    \"biography\": null,\n    \"country_code\": null,\n    \"country_name\": null,\n    \"location\": null,\n    \"phone_number\": null,\n    \"facebook_url\": null,\n    \"linkedin_url\": null,\n    \"twitter_url\": null,\n    \"website_url\": null,\n    \"created_at\": \"2021-01-25 16:59:06\",\n    \"registration_status\": \"none\",\n    \"checked_in\": false\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/788/attendees/3358",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"788",
+						"attendees",
+						"3358"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/attendees/{attendeeId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/{{eventId}}/attendees/1105",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"{{eventId}}",
+						"attendees",
+						"1105"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "eventId",
+			"value": "63"
+		}
+	]
+}

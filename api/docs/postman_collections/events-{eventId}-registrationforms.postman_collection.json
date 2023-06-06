@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "cd3cac2d-dbcc-423d-94b6-913c0230cf59",
+		"name": "events/{eventId}/registrationforms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-cd3cac2d-dbcc-423d-94b6-913c0230cf59?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "events/{eventId}/registrationforms",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/12763/registrationforms?per_page=2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"12763",
+						"registrationforms"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/registrationforms/{registrationFormId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/{{eventId}}/registrationforms/225",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"{{eventId}}",
+						"registrationforms",
+						"225"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/registrationforms",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": {\n        \"en\": \"Name En 5\",\n        \"fr\": \"Name FR 5\"\n    },\n    \"label\": \"test_label_roman\",\n    \"visibility\": \"private\",\n    \"is_open\": true,\n    \"accept_decline\": true,\n    \"auto_close_date\": \"2020-03-20 00:00:00\",\n    \"auto_open_date\": \"2020-03-18 00:00:00\",\n    \"auto_close_event_end_date\": false,\n    \"auto_close_event_start_date\": false,\n    \"auto_close_attendees\": null,\n    \"number_of_guests\": 2,\n    \"standalone_short_url_id\": 2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/12147/registrationforms",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"12147",
+						"registrationforms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/registrationforms/{registrationFormId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Use-External-Id",
+						"value": "{{useExternalId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/events/{{eventId}}/registrationforms/14683",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"{{eventId}}",
+						"registrationforms",
+						"14683"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events/{eventId}/registrationforms/{registrationFormId}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Use-External-Id",
+						"value": "0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": {\n        \"en\": \"\",\n        \"fr\": \"Venez vous inscrire au club de poney super VIP\"\n    },\n    \"label\": \"test_label_roman\",\n    \"visibility\": \"private\",\n    \"is_open\": true,\n    \"accept_decline\": true,\n    \"auto_close_date\": \"2020-03-20 00:00:00\",\n    \"auto_open_date\": \"2020-03-18 00:00:00\",\n    \"auto_close_event_end_date\": false,\n    \"auto_close_event_start_date\": false,\n    \"auto_close_attendees\": null,\n    \"number_of_guests\": 2,\n    \"standalone_short_url_id\": 2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events/12147/registrationforms/254",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events",
+						"12147",
+						"registrationforms",
+						"254"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "eventId",
+			"value": "62"
+		},
+		{
+			"key": "registrationFormId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

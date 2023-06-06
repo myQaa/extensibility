@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "235477dd-2e1d-4ccb-a0dd-cbeeab672ff9",
+		"name": "Ticketing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14178652",
+		"_collection_link": "https://crimson-astronaut-173609.postman.co/workspace/Pub%252Fv1~5541cd09-7e1d-4284-8182-cbc1b30f888e/collection/14178652-235477dd-2e1d-4ccb-a0dd-cbeeab672ff9?action=share&creator=14178652&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "TicketingOrder",
+			"item": [
+				{
+					"name": "event/{eventId}/ticketing/orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events/15683/ticketing/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15683",
+								"ticketing",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "comment",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders/{orderId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events/15683/ticketing/orders/297",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15683",
+								"ticketing",
+								"orders",
+								"297"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendee_id\": 3,\n  \"status_id\": 1,\n  \"cost_center_id\": 45,\n  \"comment\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/events/15746/ticketing/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15746",
+								"ticketing",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendee_id\": 3,\n  \"status_id\": 1,\n  \"cost_center_id\": 45,\n  \"comment\": \"toto\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/events/3/ticketing/orders/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"3",
+								"ticketing",
+								"orders",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attendee_id\": 3,\n  \"status_id\": 1,\n  \"cost_center_id\": 45,\n  \"comment\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/events/15746/ticketing/orders/707",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15746",
+								"ticketing",
+								"orders",
+								"707"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TicketingOrderItem",
+			"item": [
+				{
+					"name": "event/{eventId}/ticketing/orders/{orderId}/items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events/15746/ticketing/orders/708/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15746",
+								"ticketing",
+								"orders",
+								"708",
+								"items"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "ticket_reference",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders/{orderId}/items/{itemId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events/15746/ticketing/orders/708/items/4732",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15746",
+								"ticketing",
+								"orders",
+								"708",
+								"items",
+								"4732"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "ticket_reference",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event/{eventId}/ticketing/orders/{orderId}/items/{itemId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events/15746/ticketing/orders/708/items/4730",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events",
+								"15746",
+								"ticketing",
+								"orders",
+								"708",
+								"items",
+								"4730"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "ticket_reference",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "useExternalId",
+			"value": "{{useExternalId}}"
+		}
+	]
+}
