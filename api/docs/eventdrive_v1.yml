@@ -1226,7 +1226,7 @@ components:
             type: oauth2
             flows:
                 clientCredentials:
-                    tokenUrl: https://oauth.eventdrive.com/token
+                    tokenUrl: https://api.eventdrive.com/public/v1/token
                     scopes: {}
     responses:
         200:
