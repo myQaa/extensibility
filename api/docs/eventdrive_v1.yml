@@ -1671,6 +1671,7 @@ components:
                             enum:
                                 - none
                                 - invited
+                                - pre_registered
                                 - confirmed
                                 - refused
                         registration_status_updated_at:
@@ -1724,6 +1725,7 @@ components:
                     enum:
                         - none
                         - invited
+                        - pre_registered
                         - confirmed
                         - refused
                 checked_in:
