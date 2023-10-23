@@ -273,6 +273,70 @@ paths:
                 404:
                     $ref: '#/components/responses/404'
     /events/{eventId}/attendees/{attendeeId}:
+        get:
+            tags:
+                - Events Attendees
+            summary: Retrieve an event attendee using Id
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Events Attendees
+            summary: Add or update an attendee to an event using Id
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EventAttendeeRequestBody'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: '#/components/schemas/Attendee'
+                                    - $ref: '#/components/schemas/EventAttendee'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
         post:
             tags:
                 - Events Attendees
