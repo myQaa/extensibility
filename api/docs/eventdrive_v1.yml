@@ -373,6 +373,53 @@ paths:
                     $ref: '#/components/responses/403'
                 404:
                     $ref: '#/components/responses/404'
+
+    /events/{eventId}/emails:
+        get:
+            tags:
+                - Events Mails
+            summary: Retrieve event mails
+            parameters:
+                - $ref: "#/components/parameters/eventId"
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/MailList"
+                403:
+                    $ref: "#/components/responses/403"
+                404:
+                    $ref: "#/components/responses/404"
+
+    /events/{eventId}/emails/{mailId}/send:
+        post:
+            tags:
+                - Events Mails
+            summary: Send mail
+            parameters:
+                - $ref: "#/components/parameters/eventId"
+                - $ref: "#/components/parameters/mailId"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                attendee_ids:
+                                    type: array
+                                    items:
+                                        type: integer
+                                        example: 1,2,3
+            responses:
+                200:
+                    $ref: "#/components/responses/200"
+                400:
+                    $ref: "#/components/responses/400"
+                403:
+                    $ref: "#/components/responses/403"
     /events/{eventId}/ticketing/orders:
         get:
             tags:
@@ -1792,6 +1839,12 @@ components:
                         - pre_registered
                         - confirmed
                         - refused
+                confirmation_email_id:
+                    type: integer
+                    example: 1
+                confirmation_email_internal_name:
+                    type: string
+                    example: 'mail_exemple'
                 checked_in:
                     type: boolean
                 invited_by_first_name:
@@ -1801,6 +1854,35 @@ components:
                 invited_by_email:
                     type: string
                     format: email
+
+        Mail:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                    readOnly: true
+                name:
+                    type: string
+                    readOnly: true
+                subject:
+                    type: string
+                    readOnly: true
+                last_sent:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                attach_invitation_icalendar:
+                    type: boolean
+                    readOnly: true
+
+        MailList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Mail"
 
         TicketingOrder:
             type: object
@@ -2123,3 +2205,10 @@ components:
             schema:
               type: integer
               format: int32
+        mailId:
+            name: mailId
+            in: path
+            required: true
+            schema:
+                type: integer
+                format: int32
