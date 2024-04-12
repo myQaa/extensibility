@@ -421,14 +421,14 @@ paths:
                 403:
                     $ref: "#/components/responses/403"
 
-    /events/{eventId}/emails/{confirmationInternalName}/send:
+    /events/{eventId}/emails/{emailInternalName}/send:
         post:
             tags:
                 - Events Mails
             summary: Send an mail using event id, confirmation internal name and attendee ids
             parameters:
                 - $ref: "#/components/parameters/eventId"
-                - $ref: "#/components/parameters/confirmationInternalName"
+                - $ref: "#/components/parameters/emailInternalName"
             requestBody:
                 required: true
                 content:
@@ -450,7 +450,7 @@ paths:
                     $ref: "#/components/responses/403"
 
 
-    /events/{eventExternalId}/emails/{confirmationInternalName}/send:
+    /events/{eventExternalId}/emails/{emailInternalName}/send:
         post:
             tags:
                 - Events Mails
@@ -458,7 +458,7 @@ paths:
             parameters:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/eventExternalId'
-                - $ref: "#/components/parameters/confirmationInternalName"
+                - $ref: "#/components/parameters/emailInternalName"
             requestBody:
                 required: true
                 content:
@@ -2271,8 +2271,8 @@ components:
             schema:
                 type: integer
                 format: int32
-        confirmationInternalName:
-            name: confirmationInternalName
+        emailInternalName:
+            name: emailInternalName
             in: path
             required: true
             schema:
