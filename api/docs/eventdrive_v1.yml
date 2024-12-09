@@ -1715,9 +1715,6 @@ components:
                 timezone:
                     type: string
                     example: Europe/Paris
-                is_admin:
-                    type: boolean
-                    default: false
                 country_code:
                     type: string
                     example: FR
