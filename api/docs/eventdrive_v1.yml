@@ -397,7 +397,7 @@ paths:
         post:
             tags:
                 - Events Mails
-            summary: Send mail
+            summary: Send an mail using event id, mail id and attendee ids
             parameters:
                 - $ref: "#/components/parameters/eventId"
                 - $ref: "#/components/parameters/mailId"
@@ -420,6 +420,65 @@ paths:
                     $ref: "#/components/responses/400"
                 403:
                     $ref: "#/components/responses/403"
+
+    /events/{eventId}/emails/{emailInternalName}/send:
+        post:
+            tags:
+                - Events Mails
+            summary: Send an mail using event id, confirmation internal name and attendee ids
+            parameters:
+                - $ref: "#/components/parameters/eventId"
+                - $ref: "#/components/parameters/emailInternalName"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                attendee_ids:
+                                    type: array
+                                    items:
+                                        type: integer
+                                        example: 1,2,3
+            responses:
+                200:
+                    $ref: "#/components/responses/200"
+                400:
+                    $ref: "#/components/responses/400"
+                403:
+                    $ref: "#/components/responses/403"
+
+
+    /events/{eventExternalId}/emails/{emailInternalName}/send:
+        post:
+            tags:
+                - Events Mails
+            summary: Send an mail using event external id confirmation internal name and attendee external ids
+            parameters:
+                - $ref: '#/components/parameters/useExternalId'
+                - $ref: '#/components/parameters/eventExternalId'
+                - $ref: "#/components/parameters/emailInternalName"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                attendee_external_ids:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: abcd1234,efgh5678,ijkl91011
+            responses:
+                200:
+                    $ref: "#/components/responses/200"
+                400:
+                    $ref: "#/components/responses/400"
+                403:
+                    $ref: "#/components/responses/403"
+
     /events/{eventId}/ticketing/orders:
         get:
             tags:
@@ -2209,3 +2268,10 @@ components:
             schema:
                 type: integer
                 format: int32
+        emailInternalName:
+            name: emailInternalName
+            in: path
+            required: true
+            schema:
+                type: string
+                format: string
