@@ -1891,11 +1891,11 @@ components:
                 role:
                     type: string
                     enum:
-                        - admin
-                        - owner
-                        - moderator
-                        - speaker
                         - attendee
+                        - speaker
+                        - moderator
+                        - owner
+                        - admin
         EventAttendeeRequestBody:
             type: object
             properties:
