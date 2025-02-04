@@ -1886,6 +1886,14 @@ components:
                 token:
                     type: string
                     readOnly: true
+                role:
+                    type: string
+                    enum:
+                        - admin
+                        - owner
+                        - moderator
+                        - speaker
+                        - attendee
         EventAttendeeRequestBody:
             type: object
             properties:
