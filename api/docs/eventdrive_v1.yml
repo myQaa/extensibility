@@ -1573,6 +1573,8 @@ components:
                     type: string
                     writeOnly: true
                     example: fr
+                replay:
+                    type: boolean
                 available_locales:
                     type: array
                     items:
