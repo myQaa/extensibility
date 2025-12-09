@@ -1748,23 +1748,21 @@ components:
                         type: string
                 visibility:
                     type: string
-                    enum: [everyone, attendees_group, attendees]
-                waiting_list:
+                    enum: [everyone, only_attendee_groups, registered_attendees]
+                has_waiting_list:
                     type: boolean
                 start_date:
                     type: string
                     format: date-time
+                    example: '2025-11-07 08:00:00'
                 end_date:
                     type: string
                     format: date-time
-                location:
-                    type: string
-                capacity:
+                    example: '2025-11-07 09:00:00'
+                max_capacity:
                     type: integer
                     format: int32
-                attendees_count:
-                    type: integer
-                    format: int32
+                    nullable: true
         EventList:
             type: object
             properties:
