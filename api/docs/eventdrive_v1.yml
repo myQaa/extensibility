@@ -280,6 +280,11 @@ paths:
             parameters:
                 - $ref: '#/components/parameters/eventId'
                 - $ref: '#/components/parameters/attendeeId'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EventAttendeeRequestBody'
             responses:
                 200:
                     description: OK
@@ -366,6 +371,104 @@ paths:
             parameters:
                 - $ref: '#/components/parameters/eventId'
                 - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+
+    /events/{eventId}/attendees/{attendeeId}/sessions:
+        get:
+            tags:
+                - Attendee Sessions
+            summary: Retrieve attendee session registrations
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeSessionList'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+
+    /events/{eventId}/attendees/{attendeeId}/sessions/{sessionId}:
+        get:
+            tags:
+                - Attendee Sessions
+            summary: Get attendee session registration
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+                - $ref: '#/components/parameters/sessionId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeSession'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        post:
+            tags:
+                - Attendee Sessions
+            summary: Register attendee to session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+                - $ref: '#/components/parameters/sessionId'
+            responses:
+                201:
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeSession'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        put:
+            tags:
+                - Attendee Sessions
+            summary: Update attendee session registration
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+                - $ref: '#/components/parameters/sessionId'
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AttendeeSession'
+                400:
+                    $ref: '#/components/responses/400'
+                403:
+                    $ref: '#/components/responses/403'
+                404:
+                    $ref: '#/components/responses/404'
+        delete:
+            tags:
+                - Attendee Sessions
+            summary: Unregister attendee from session
+            parameters:
+                - $ref: '#/components/parameters/eventId'
+                - $ref: '#/components/parameters/attendeeId'
+                - $ref: '#/components/parameters/sessionId'
             responses:
                 200:
                     description: OK
@@ -1220,6 +1323,11 @@ paths:
                 - $ref: '#/components/parameters/useExternalId'
                 - $ref: '#/components/parameters/eventExternalId'
                 - $ref: '#/components/parameters/attendeeExternalId'
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EventAttendeeRequestBody'
             responses:
                 200:
                     description: OK
@@ -1622,6 +1730,8 @@ components:
                 id:
                     type: integer
                     format: int32
+                external_id:
+                    type: string
                 name:
                     type: object
                     properties:
@@ -1647,6 +1757,14 @@ components:
                 end_date:
                     type: string
                     format: date-time
+                location:
+                    type: string
+                capacity:
+                    type: integer
+                    format: int32
+                attendees_count:
+                    type: integer
+                    format: int32
         EventList:
             type: object
             properties:
@@ -2182,6 +2300,38 @@ components:
               current_page:
                 type: integer
                 format: int32
+
+        AttendeeSession:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                external_id:
+                    type: string
+                registered_at:
+                    type: string
+                    format: date-time
+                checked_in_at:
+                    type: string
+                    format: date-time
+
+        AttendeeSessionList:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AttendeeSession'
+                total_count:
+                    type: integer
+                    format: int32
+                page_size:
+                    type: integer
+                    format: int32
+                current_page:
+                    type: integer
+                    format: int32
     parameters:
         eventId:
             name: eventId
