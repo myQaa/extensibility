@@ -1706,6 +1706,8 @@ components:
                             type: string
                         longitude:
                             type: string
+                website:
+                    $ref: '#/components/schemas/Website'
                 urls:
                     type: object
                     readOnly: true
@@ -2364,6 +2366,79 @@ components:
                 current_page:
                     type: integer
                     format: int32
+
+        WebsiteImages:
+            type: object
+            properties:
+                background_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "https://cdn.example.com/bg.jpg"
+                background_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+                header_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "/storage/header.jpg"
+                header_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+                logo_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "events/123/logo.png"
+                logo_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+        WebsiteLayoutOptions:
+            type: object
+            properties:
+                header_style:
+                    type: string
+                    enum: [full_width, centered, hero_banner_text_left, hero_banner_text_centered, hidden]
+                    example: hero_banner_text_centered
+                menu_location:
+                    type: string
+                    enum: [top, left, right]
+                    example: top
+                list_layout:
+                    type: string
+                    enum: [grid, list]
+                    example: grid
+        WebsiteColors:
+            type: object
+            description: |
+                Single design-system token. The `org_color` value drives every themed element of
+                the website (header background, buttons, agenda items, service name, event description).
+                All other colors (text, backgrounds, footer, overlays) are fixed frontend constants
+                and are not configurable through the API.
+            properties:
+                org_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#4285F4"
+        WebsiteFonts:
+            type: object
+            properties:
+                font_family:
+                    type: string
+                    maxLength: 255
+                    example: "Roboto"
+        Website:
+            type: object
+            properties:
+                images:
+                    $ref: '#/components/schemas/WebsiteImages'
+                layout_options:
+                    $ref: '#/components/schemas/WebsiteLayoutOptions'
+                colors:
+                    $ref: '#/components/schemas/WebsiteColors'
+                fonts:
+                    $ref: '#/components/schemas/WebsiteFonts'
     parameters:
         eventId:
             name: eventId
