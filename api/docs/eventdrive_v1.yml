@@ -1763,6 +1763,19 @@ components:
                     type: integer
                     format: int32
                     nullable: true
+                child_ids:
+                    type: array
+                    items:
+                        type: integer
+                        format: int32
+                    readOnly: true
+                    description: IDs of child sessions (sessions where parent_id equals this session's ID)
+                child_external_ids:
+                    type: array
+                    items:
+                        type: string
+                    readOnly: true
+                    description: External IDs of child sessions (sessions where parent_id equals this session's ID)
         EventList:
             type: object
             properties:
