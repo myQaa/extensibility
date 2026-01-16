@@ -2012,6 +2012,22 @@ components:
                         - moderator
                         - owner
                         - admin
+                disclaimers_consent:
+                    type: array
+                    readOnly: true
+                    items:
+                        type: object
+                        properties:
+                            disclaimer_id:
+                                type: integer
+                                format: int32
+                            titles:
+                                type: object
+                                properties:
+                                    en:
+                                        type: string
+                                additionalProperties:
+                                    type: string
         EventAttendeeRequestBody:
             type: object
             properties:
