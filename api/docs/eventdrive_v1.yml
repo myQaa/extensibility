@@ -1763,6 +1763,11 @@ components:
                     type: integer
                     format: int32
                     nullable: true
+                registered_attendee_count:
+                    type: integer
+                    format: int32
+                    readOnly: true
+                    description: Number of attendees registered to this session
                 child_ids:
                     type: array
                     items:
