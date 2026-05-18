@@ -2412,15 +2412,32 @@ components:
         WebsiteColors:
             type: object
             description: |
-                Single design-system token. The `org_color` value drives every themed element of
-                the website (header background, buttons, agenda items, service name, event description).
-                All other colors (text, backgrounds, footer, overlays) are fixed frontend constants
-                and are not configurable through the API.
+                Four design-system tokens. Each token drives a group of UI elements:
+                  - `primary_color`: header background, event description, service name,
+                    buttons (background), agenda items.
+                  - `secondary_color`: page background, buttons text.
+                  - `background_color`: menu background.
+                  - `text_color`: menu links, common text, names, links.
+                Other elements (event name, countdown, date & time, main content background,
+                footer background, social icons, footer text) are fixed frontend constants
+                (white/black overlays at 0.5 opacity) and cannot be customized through the API.
             properties:
-                org_color:
+                primary_color:
                     type: string
                     pattern: '^#[0-9A-Fa-f]{6}$'
                     example: "#4285F4"
+                secondary_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#FFFFFF"
+                background_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#F3F3F3"
+                text_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#515151"
         WebsiteFonts:
             type: object
             properties:
