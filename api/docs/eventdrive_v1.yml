@@ -2412,14 +2412,18 @@ components:
         WebsiteColors:
             type: object
             description: |
-                Four design-system tokens. Each token drives a group of UI elements:
-                  - `primary_color`: header background, event description, service name,
-                    buttons (background), agenda items.
+                Five design-system tokens. Each token drives a group of UI elements:
+                  - `primary_color`: header background, agenda items, event description.
+                    Structural brand surfaces.
                   - `secondary_color`: page background, buttons text.
+                    Contrasting / neutral surfaces.
+                  - `tertiary_color`: buttons background, service name, countdown.
+                    Accent / call-to-action / attention-grabbers.
+                    Falls back to `primary_color` when omitted.
                   - `background_color`: menu background.
                   - `text_color`: menu links, common text, names, links.
-                Other elements (event name, countdown, date & time, main content background,
-                footer background, social icons, footer text) are fixed frontend constants
+                Other elements (event name, date & time, main content background, footer
+                background, social icons, footer text) are fixed frontend constants
                 (white/black overlays at 0.5 opacity) and cannot be customized through the API.
             properties:
                 primary_color:
@@ -2430,6 +2434,10 @@ components:
                     type: string
                     pattern: '^#[0-9A-Fa-f]{6}$'
                     example: "#FFFFFF"
+                tertiary_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#C9A961"
                 background_color:
                     type: string
                     pattern: '^#[0-9A-Fa-f]{6}$'
