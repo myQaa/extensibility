@@ -2477,6 +2477,18 @@ components:
                     type: string
                     maxLength: 255
                     example: "Roboto"
+                font_provider:
+                    type: string
+                    description: |
+                        Controls how the font is loaded by the website templates:
+                          - `system` (default): no stylesheet is injected; the browser
+                            falls back to the user's installed fonts. Best for OS fonts
+                            like Helvetica Neue, Arial, San Francisco.
+                          - `google`: the templates inject a Google Fonts <link> tag
+                            automatically generated from `font_family`. Use this for
+                            non-system fonts like Roboto, Inter, Lato, etc.
+                    enum: [system, google]
+                    example: google
         Website:
             type: object
             properties:
