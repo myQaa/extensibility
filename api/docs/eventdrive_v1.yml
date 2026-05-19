@@ -2427,7 +2427,7 @@ components:
         WebsiteColors:
             type: object
             description: |
-                Five design-system tokens. Each token drives a group of UI elements:
+                Six design-system tokens. Each token drives a group of UI elements:
                   - `primary_color`: header background, agenda items, event description.
                     Structural brand surfaces.
                   - `secondary_color`: page background, buttons text.
@@ -2437,9 +2437,14 @@ components:
                     Falls back to `primary_color` when omitted.
                   - `background_color`: menu background.
                   - `text_color`: menu links, common text, names, links.
-                Other elements (event name, date & time, main content background, footer
-                background, social icons, footer text) are fixed frontend constants
-                (white/black overlays at 0.5 opacity) and cannot be customized through the API.
+                  - `footer_color`: footer background (solid). The footer text and icons
+                    remain governed by `layout_options.overlay_style` so they auto-contrast.
+                    When omitted, footer background falls back to the default semi-transparent
+                    black overlay.
+                Header overlays (event name, date & time, main content background) and footer
+                text overlays (footer text, social icons, icon texts) are governed by
+                `layout_options.overlay_style` (light / dark / mixed) and are not exposed
+                as individual hex tokens.
             properties:
                 primary_color:
                     type: string
@@ -2461,6 +2466,10 @@ components:
                     type: string
                     pattern: '^#[0-9A-Fa-f]{6}$'
                     example: "#515151"
+                footer_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#5F6368"
         WebsiteFonts:
             type: object
             properties:
