@@ -2409,6 +2409,21 @@ components:
                     type: string
                     enum: [grid, list]
                     example: grid
+                overlay_style:
+                    type: string
+                    description: |
+                        Controls the polarity of the 7 overlay constants on the website
+                        (event name, event schedule, main content background, footer
+                        background, footer text, social network icons, icon texts).
+                        When provided, overwrites any existing overlay values.
+                          - `light`: all overlays use white at 50% opacity
+                            (best on dark header images / dark page bg)
+                          - `dark`: all overlays use black at 50% opacity
+                            (best on light header images / light page bg)
+                          - `mixed`: header zone white + footer zone black
+                            (designer default — best on hero image + colored footer)
+                    enum: [light, dark, mixed]
+                    example: light
         WebsiteColors:
             type: object
             description: |
