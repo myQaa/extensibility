@@ -2491,6 +2491,32 @@ components:
                     example: google
         Website:
             type: object
+            description: |
+                **Website V2 — grouped design tokens.**
+
+                Migration from V1: every flat-style field from the legacy V1
+                payload has been removed. Sending any V1 field returns HTTP 422
+                with a per-field migration hint pointing at the V2 equivalent.
+
+                | V1 field (deprecated)             | V2 equivalent                                       |
+                |-----------------------------------|-----------------------------------------------------|
+                | `theme_id`                        | (removed — V2 has no preset themes)                 |
+                | `background_color`                | `colors.background_color`                           |
+                | `background_size`                 | (removed — no longer customizable)                  |
+                | `header_background_color`         | `colors.primary_color`                              |
+                | `ui_color`                        | `colors.primary_color` or `colors.tertiary_color`   |
+                | `button_color`                    | `colors.tertiary_color`                             |
+                | `link_color`                      | `colors.text_color`                                 |
+                | `icon_color` / `social_icon_color`| (driven by `layout_options.overlay_style`)          |
+                | `background_image_path`           | `images.background_image_path`                      |
+                | `header_background_image_path`    | `images.header_image_path`                          |
+                | `header_logo_path`                | `images.logo_image_path`                            |
+                | `heading_font_*` / `body_font_*`  | `fonts.font_family` + `fonts.font_provider`         |
+                | `speaker_photo_format`            | (removed — no longer customizable)                  |
+
+                GET responses for events created before V2 still fall back to
+                the legacy DB columns (`theme_id IS NOT NULL`), so existing
+                clients reading old events remain unaffected.
             properties:
                 images:
                     $ref: '#/components/schemas/WebsiteImages'
