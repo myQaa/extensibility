@@ -2427,24 +2427,26 @@ components:
         WebsiteColors:
             type: object
             description: |
-                Six design-system tokens. Each token drives a group of UI elements:
-                  - `primary_color`: header background, agenda items, event description.
-                    Structural brand surfaces.
-                  - `secondary_color`: page background, buttons text.
+                Three design-system tokens. Each token drives a group of UI elements:
+                  - `primary_color`: header background, agenda items, event description,
+                    **footer background**. Structural brand surfaces.
+                  - `secondary_color`: page background, buttons text, **menu background**.
                     Contrasting / neutral surfaces.
                   - `tertiary_color`: buttons background, service name, countdown.
                     Accent / call-to-action / attention-grabbers.
                     Falls back to `primary_color` when omitted.
-                  - `background_color`: menu background.
-                  - `text_color`: menu links, common text, names, links.
-                  - `footer_color`: footer background (solid). The footer text and icons
-                    remain governed by `layout_options.overlay_style` so they auto-contrast.
-                    When omitted, footer background falls back to the default semi-transparent
-                    black overlay.
-                Header overlays (event name, date & time, main content background) and footer
+
+                Text color (menu links, common text, names, links) is hardcoded to
+                a fixed dark constant (#1A1A1A) and is **not exposed** as a token.
+
+                Header overlays (event name, date/time, main content background) and footer
                 text overlays (footer text, social icons, icon texts) are governed by
-                `layout_options.overlay_style` (light / dark / mixed) and are not exposed
-                as individual hex tokens.
+                `layout_options.overlay_style` (light / dark / mixed).
+
+                Removed in this version (return HTTP 422 if sent):
+                  - `background_color` → menu background follows `secondary_color`
+                  - `text_color` → text uses a fixed dark constant
+                  - `footer_color` → footer background follows `primary_color`
             properties:
                 primary_color:
                     type: string
@@ -2457,19 +2459,7 @@ components:
                 tertiary_color:
                     type: string
                     pattern: '^#[0-9A-Fa-f]{6}$'
-                    example: "#C9A961"
-                background_color:
-                    type: string
-                    pattern: '^#[0-9A-Fa-f]{6}$'
-                    example: "#F3F3F3"
-                text_color:
-                    type: string
-                    pattern: '^#[0-9A-Fa-f]{6}$'
-                    example: "#515151"
-                footer_color:
-                    type: string
-                    pattern: '^#[0-9A-Fa-f]{6}$'
-                    example: "#5F6368"
+                    example: "#34A853"
         WebsiteFonts:
             type: object
             properties:
@@ -2498,21 +2488,23 @@ components:
                 payload has been removed. Sending any V1 field returns HTTP 422
                 with a per-field migration hint pointing at the V2 equivalent.
 
-                | V1 field (deprecated)             | V2 equivalent                                       |
-                |-----------------------------------|-----------------------------------------------------|
-                | `theme_id`                        | (removed — V2 has no preset themes)                 |
-                | `background_color`                | `colors.background_color`                           |
-                | `background_size`                 | (removed — no longer customizable)                  |
-                | `header_background_color`         | `colors.primary_color`                              |
-                | `ui_color`                        | `colors.primary_color` or `colors.tertiary_color`   |
-                | `button_color`                    | `colors.tertiary_color`                             |
-                | `link_color`                      | `colors.text_color`                                 |
-                | `icon_color` / `social_icon_color`| (driven by `layout_options.overlay_style`)          |
-                | `background_image_path`           | `images.background_image_path`                      |
-                | `header_background_image_path`    | `images.header_image_path`                          |
-                | `header_logo_path`                | `images.logo_image_path`                            |
-                | `heading_font_*` / `body_font_*`  | `fonts.font_family` + `fonts.font_provider`         |
-                | `speaker_photo_format`            | (removed — no longer customizable)                  |
+                | Deprecated field                          | V2 equivalent                                       |
+                |-------------------------------------------|-----------------------------------------------------|
+                | `theme_id`                                | (removed — V2 has no preset themes)                 |
+                | `background_color` (root or `colors.*`)   | `colors.secondary_color` (page bg)                  |
+                | `background_size`                         | (removed — no longer customizable)                  |
+                | `header_background_color`                 | `colors.primary_color`                              |
+                | `ui_color`                                | `colors.primary_color` or `colors.tertiary_color`   |
+                | `button_color`                            | `colors.tertiary_color`                             |
+                | `link_color`                              | (text is now a fixed dark constant)                 |
+                | `icon_color` / `social_icon_color`        | (driven by `layout_options.overlay_style`)          |
+                | `background_image_path`                   | `images.background_image_path`                      |
+                | `header_background_image_path`            | `images.header_image_path`                          |
+                | `header_logo_path`                        | `images.logo_image_path`                            |
+                | `heading_font_*` / `body_font_*`          | `fonts.font_family` + `fonts.font_provider`         |
+                | `speaker_photo_format`                    | (removed — no longer customizable)                  |
+                | `colors.text_color`                       | (text is now a fixed dark constant)                 |
+                | `colors.footer_color`                     | `colors.primary_color` (footer follows primary)     |
 
                 GET responses for events created before V2 still fall back to
                 the legacy DB columns (`theme_id IS NOT NULL`), so existing
