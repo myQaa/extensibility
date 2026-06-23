@@ -1706,6 +1706,8 @@ components:
                             type: string
                         longitude:
                             type: string
+                website:
+                    $ref: '#/components/schemas/Website'
                 urls:
                     type: object
                     readOnly: true
@@ -2364,6 +2366,158 @@ components:
                 current_page:
                     type: integer
                     format: int32
+
+        WebsiteImages:
+            type: object
+            properties:
+                background_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "https://cdn.example.com/bg.jpg"
+                background_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+                header_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "/storage/header.jpg"
+                header_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+                logo_image_path:
+                    type: string
+                    maxLength: 500
+                    example: "events/123/logo.png"
+                logo_image_url:
+                    type: string
+                    format: uri
+                    readOnly: true
+        WebsiteLayoutOptions:
+            type: object
+            properties:
+                header_style:
+                    type: string
+                    enum: [full_width, centered, hero_banner_text_left, hero_banner_text_centered, hidden]
+                    example: hero_banner_text_centered
+                menu_location:
+                    type: string
+                    enum: [top, left, right]
+                    example: top
+                list_layout:
+                    type: string
+                    enum: [grid, list]
+                    example: grid
+                overlay_style:
+                    type: string
+                    description: |
+                        Controls the polarity of the 7 overlay constants on the website
+                        (event name, event schedule, main content background, footer
+                        background, footer text, social network icons, icon texts).
+                        When provided, overwrites any existing overlay values.
+                          - `light`: all overlays use white at 50% opacity
+                            (best on dark header images / dark page bg)
+                          - `dark`: all overlays use black at 50% opacity
+                            (best on light header images / light page bg)
+                          - `mixed`: header zone white + footer zone black
+                            (designer default — best on hero image + colored footer)
+                    enum: [light, dark, mixed]
+                    example: light
+        WebsiteColors:
+            type: object
+            description: |
+                Three design-system tokens. Each token drives a group of UI elements:
+                  - `primary_color`: header background, agenda items, event description,
+                    **footer background**. Structural brand surfaces.
+                  - `secondary_color`: page background, buttons text, **menu background**.
+                    Contrasting / neutral surfaces.
+                  - `tertiary_color`: buttons background, service name, countdown.
+                    Accent / call-to-action / attention-grabbers.
+                    Falls back to `primary_color` when omitted.
+
+                Text color (menu links, common text, names, links) is hardcoded to
+                a fixed dark constant (#1A1A1A) and is **not exposed** as a token.
+
+                Header overlays (event name, date/time, main content background) and footer
+                text overlays (footer text, social icons, icon texts) are governed by
+                `layout_options.overlay_style` (light / dark / mixed).
+
+                Removed in this version (return HTTP 422 if sent):
+                  - `background_color` → menu background follows `secondary_color`
+                  - `text_color` → text uses a fixed dark constant
+                  - `footer_color` → footer background follows `primary_color`
+            properties:
+                primary_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#4285F4"
+                secondary_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#FFFFFF"
+                tertiary_color:
+                    type: string
+                    pattern: '^#[0-9A-Fa-f]{6}$'
+                    example: "#34A853"
+        WebsiteFonts:
+            type: object
+            properties:
+                font_family:
+                    type: string
+                    maxLength: 255
+                    example: "Roboto"
+                font_provider:
+                    type: string
+                    description: |
+                        Controls how the font is loaded by the website templates:
+                          - `system` (default): no stylesheet is injected; the browser
+                            falls back to the user's installed fonts. Best for OS fonts
+                            like Helvetica Neue, Arial, San Francisco.
+                          - `google`: the templates inject a Google Fonts <link> tag
+                            automatically generated from `font_family`. Use this for
+                            non-system fonts like Roboto, Inter, Lato, etc.
+                    enum: [system, google]
+                    example: google
+        Website:
+            type: object
+            description: |
+                **Website V2 — grouped design tokens.**
+
+                Migration from V1: every flat-style field from the legacy V1
+                payload has been removed. Sending any V1 field returns HTTP 422
+                with a per-field migration hint pointing at the V2 equivalent.
+
+                | Deprecated field                          | V2 equivalent                                       |
+                |-------------------------------------------|-----------------------------------------------------|
+                | `theme_id`                                | (removed — V2 has no preset themes)                 |
+                | `background_color` (root or `colors.*`)   | `colors.secondary_color` (page bg)                  |
+                | `background_size`                         | (removed — no longer customizable)                  |
+                | `header_background_color`                 | `colors.primary_color`                              |
+                | `ui_color`                                | `colors.primary_color` or `colors.tertiary_color`   |
+                | `button_color`                            | `colors.tertiary_color`                             |
+                | `link_color`                              | (text is now a fixed dark constant)                 |
+                | `icon_color` / `social_icon_color`        | (driven by `layout_options.overlay_style`)          |
+                | `background_image_path`                   | `images.background_image_path`                      |
+                | `header_background_image_path`            | `images.header_image_path`                          |
+                | `header_logo_path`                        | `images.logo_image_path`                            |
+                | `heading_font_*` / `body_font_*`          | `fonts.font_family` + `fonts.font_provider`         |
+                | `speaker_photo_format`                    | (removed — no longer customizable)                  |
+                | `colors.text_color`                       | (text is now a fixed dark constant)                 |
+                | `colors.footer_color`                     | `colors.primary_color` (footer follows primary)     |
+
+                GET responses for events created before V2 still fall back to
+                the legacy DB columns (`theme_id IS NOT NULL`), so existing
+                clients reading old events remain unaffected.
+            properties:
+                images:
+                    $ref: '#/components/schemas/WebsiteImages'
+                layout_options:
+                    $ref: '#/components/schemas/WebsiteLayoutOptions'
+                colors:
+                    $ref: '#/components/schemas/WebsiteColors'
+                fonts:
+                    $ref: '#/components/schemas/WebsiteFonts'
     parameters:
         eventId:
             name: eventId
